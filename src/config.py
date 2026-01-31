@@ -1,6 +1,7 @@
 """
 Configuration management for Kalshi Starter Kit.
 Loads settings from environment variables, .env file, or Streamlit secrets.
+PATCHED: Better default handling for Streamlit Cloud
 """
 
 import os
@@ -18,22 +19,42 @@ except ImportError:
 # Try to load Streamlit secrets
 try:
     import streamlit as st
-    HAS_STREAMLIT = hasattr(st, 'secrets')
+    HAS_STREAMLIT = True
 except ImportError:
     HAS_STREAMLIT = False
 
 
 def get_secret(key: str, default: Optional[str] = None) -> Optional[str]:
     """Get a secret from Streamlit secrets or environment variables."""
+    value = None
+    
     # Try Streamlit secrets first
     if HAS_STREAMLIT:
         try:
-            return st.secrets.get(key, None)
+            value = st.secrets.get(key, None)
         except:
             pass
     
     # Fall back to environment variables
-    return os.getenv(key, default)
+    if value is None:
+        value = os.getenv(key, None)
+    
+    # Return default if still None
+    if value is None:
+        return default
+    
+    return value
+
+
+def get_float(key: str, default: float) -> float:
+    """Get a float value from secrets with proper default handling."""
+    value = get_secret(key, None)
+    if value is None:
+        return default
+    try:
+        return float(value)
+    except (ValueError, TypeError):
+        return default
 
 
 @dataclass
@@ -72,7 +93,9 @@ class Config:
         """Load and return the private key content."""
         # If we have direct content, use it
         if self.private_key_content:
-            return self.private_key_content
+            # Clean up the key (handle any formatting issues)
+            key = self.private_key_content.strip()
+            return key
         
         # Otherwise, load from file
         if self.private_key_path:
@@ -124,17 +147,22 @@ class Config:
                 "KALSHI_PRIVATE_KEY_PATH (file path)."
             )
         
+        # Environment with default
+        environment = get_secret("KALSHI_ENVIRONMENT", "production")
+        if not environment:
+            environment = "production"
+        
         return cls(
             api_key_id=api_key_id,
-            environment=get_secret("KALSHI_ENVIRONMENT", "demo"),
+            environment=environment,
             private_key_path=private_key_path,
             private_key_content=private_key_content,
             anthropic_api_key=get_secret("ANTHROPIC_API_KEY"),
             telegram_bot_token=get_secret("TELEGRAM_BOT_TOKEN"),
             telegram_chat_id=get_secret("TELEGRAM_CHAT_ID"),
-            max_position_size_usd=float(get_secret("MAX_POSITION_SIZE_USD", "100")),
-            max_daily_loss_usd=float(get_secret("MAX_DAILY_LOSS_USD", "50")),
-            min_confidence_threshold=float(get_secret("MIN_CONFIDENCE_THRESHOLD", "0.65")),
+            max_position_size_usd=get_float("MAX_POSITION_SIZE_USD", 100.0),
+            max_daily_loss_usd=get_float("MAX_DAILY_LOSS_USD", 50.0),
+            min_confidence_threshold=get_float("MIN_CONFIDENCE_THRESHOLD", 0.65),
         )
     
     def validate(self) -> bool:

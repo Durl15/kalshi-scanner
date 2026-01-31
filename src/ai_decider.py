@@ -107,14 +107,26 @@ class AIDecider:
         additional_context: Optional[str] = None,
     ) -> AIAnalysis:
         """
-        Perform full AI analysis on a market.
-        
+        Performs a deep, multi-agent AI analysis on a single market.
+
+        This function orchestrates a sequence of AI agents to produce a comprehensive
+        trading recommendation:
+        1.  **Forecaster**: Estimates the true probability of the event, ignoring
+            the current market price.
+        2.  **Critic**: Challenges the forecast, identifying potential risks,
+            biases, and blind spots.
+        3.  **Trader**: Synthesizes the forecast, critique, and live market data
+            to make a final, actionable trading decision (e.g., BUY_YES, SKIP).
+
         Args:
-            market: Market to analyze
-            additional_context: Extra context (news, data, etc.)
-            
+            market: The Kalshi Market object to be analyzed.
+            additional_context: Optional string containing external information
+                (e.g., news articles, statistical data) to provide to the AI
+                for a more informed analysis.
+
         Returns:
-            AIAnalysis with prediction and trading recommendation
+            An AIAnalysis data object containing the combined outputs of all
+            three agents, including the final trading decision and rationale.
         """
         # Step 1: Forecaster
         forecast = self._run_forecaster(market, additional_context)
@@ -147,14 +159,25 @@ class AIDecider:
         min_confidence: float = 0.6,
     ) -> List[AIAnalysis]:
         """
-        Analyze multiple markets and return actionable opportunities.
-        
+        Analyzes a list of markets and filters for high-quality opportunities.
+
+        This method iterates through a list of markets, performs a full
+        `analyze_market` deep dive on each, and then filters the results to
+        return only those analyses where the AI's confidence level meets a
+        minimum threshold.
+
+        The final list is sorted by a combination of a trade's "edge" (the
+        difference between predicted probability and market price) and the AI's
+        confidence in its prediction, highlighting the most promising trades.
+
         Args:
-            markets: List of markets to analyze
-            min_confidence: Minimum confidence to include in results
-            
+            markets: A list of Market objects to analyze.
+            min_confidence: The minimum AI confidence score (0.0 to 1.0) required
+                for an analysis to be included in the results.
+
         Returns:
-            List of analyses meeting confidence threshold
+            A list of AIAnalysis objects for markets that meet the confidence
+            threshold, sorted from most to least promising.
         """
         results = []
         for market in markets:
@@ -315,15 +338,24 @@ Respond in JSON format:
         batch_size: int = 10,
     ) -> List[Market]:
         """
-        Quick AI screen of markets to find promising candidates.
-        Uses a single prompt to evaluate multiple markets efficiently.
-        
+        Performs a fast, high-level AI screen of markets to find candidates
+        for deeper analysis.
+
+        This method is a cost-effective way to pre-filter a large number of
+        markets. It sends batches of markets to the AI and asks for a simple
+        rating (1-5) based on perceived mispricing or potential. Only markets
+        that receive a high score are returned.
+
+        This helps focus the more expensive `analyze_market` calls on only the
+        most promising opportunities.
+
         Args:
-            markets: Markets to screen
-            batch_size: How many to evaluate per API call
-            
+            markets: A list of Market objects to screen.
+            batch_size: The number of markets to include in each API call to the AI.
+
         Returns:
-            List of markets worth deeper analysis
+            A filtered list of Market objects that the AI has identified as
+            having high potential and being worthy of a full analysis.
         """
         promising = []
         

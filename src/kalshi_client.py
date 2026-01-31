@@ -8,6 +8,7 @@ Handles authentication, rate limiting, and common operations.
 import time
 import hashlib
 import base64
+import random
 from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional
 from dataclasses import dataclass
@@ -89,27 +90,31 @@ class RateLimiter:
         self.last_request: float = 0
     
     def wait_if_needed(self):
-        """Block if we've exceeded rate limits."""
+        """Block if we've exceeded rate limits, using two conservative rules."""
         now = time.time()
         
-        # Always wait minimum interval between requests
+        # Rule 1: Always wait for a minimum interval between subsequent requests.
         time_since_last = now - self.last_request
         if time_since_last < self.min_interval:
             sleep_time = self.min_interval - time_since_last
-            print(f"   [Rate limit: waiting {sleep_time:.1f}s...]")
+            print(f"   [Rate limit: waiting {sleep_time:.1f}s (minimum interval)]")
             time.sleep(sleep_time)
-            now = time.time()
+            now = time.time()  # Update current time after sleeping
         
-        # Remove requests older than 1 minute
+        # Rule 2: Enforce a rolling window for requests per minute.
+        # Remove requests from our tracking list that are older than 60 seconds.
         self.requests = [r for r in self.requests if now - r < 60]
         
-        # If we've hit the per-minute limit, wait
+        # If the number of requests in the last minute still exceeds the limit,
+        # wait until the oldest request expires from the 60-second window.
         if len(self.requests) >= self.requests_per_minute:
-            sleep_time = 60 - (now - self.requests[0]) + 1
+            # The time to wait is until the first request in the list is 60s old.
+            sleep_time = 60 - (now - self.requests[0]) + 1  # +1 for a buffer
             if sleep_time > 0:
-                print(f"   [Rate limit: waiting {sleep_time:.1f}s for reset...]")
+                print(f"   [Rate limit: waiting {sleep_time:.1f}s (per-minute limit)]")
                 time.sleep(sleep_time)
         
+        # Record the timestamp of the current request.
         self.requests.append(time.time())
         self.last_request = time.time()
 
@@ -185,9 +190,13 @@ class KalshiClient:
         endpoint: str, 
         params: Optional[Dict] = None,
         json: Optional[Dict] = None,
-        retry_count: int = 3
+        retry_count: int = 4,
+        base_wait_sec: int = 5
     ) -> Dict[str, Any]:
-        """Make an authenticated request to the API with retry logic."""
+        """
+        Make an authenticated request to the API with rate limiting and retry logic.
+        Implements exponential backoff with jitter for handling 429 rate limit errors.
+        """
         self.rate_limiter.wait_if_needed()
         
         url = f"{self.base_url}{endpoint}"
@@ -195,28 +204,58 @@ class KalshiClient:
         headers = self._get_headers(method, path)
         
         for attempt in range(retry_count):
-            response = self.session.request(
-                method=method,
-                url=url,
-                headers=headers,
-                params=params,
-                json=json,
-            )
-            
-            if response.status_code == 401:
-                raise AuthenticationError("Invalid API credentials")
-            elif response.status_code == 429:
-                # Rate limited - wait and retry
-                wait_time = (attempt + 1) * 30  # 30s, 60s, 90s
-                print(f"   [429 Rate limited - waiting {wait_time}s before retry {attempt+1}/{retry_count}]")
-                time.sleep(wait_time)
-                continue
-            elif response.status_code >= 400:
-                raise APIError(f"API error {response.status_code}: {response.text}")
-            
-            return response.json()
-        
-        raise RateLimitError("Rate limit exceeded after retries")
+            try:
+                response = self.session.request(
+                    method=method,
+                    url=url,
+                    headers=headers,
+                    params=params,
+                    json=json,
+                    timeout=15  # Add a timeout
+                )
+                
+                if response.status_code == 401:
+                    raise AuthenticationError(
+                        "Authentication failed (401). Please check your "
+                        "KALSHI_API_KEY_ID and private key configuration in your "
+                        ".env file or environment variables."
+                    )
+                
+                if response.status_code == 429:
+                    # This is a rate limit error, trigger a retry
+                    raise RateLimitError(f"Rate limited (429) on attempt {attempt + 1}")
+
+                # Raise an exception for other bad status codes (4xx or 5xx)
+                response.raise_for_status()
+                
+                return response.json()
+
+            except requests.exceptions.RequestException as e:
+                # Handle network errors (e.g., DNS failure, refused connection)
+                if attempt < retry_count - 1:
+                    print(f"   [Network error: {e}. Retrying...]")
+                    time.sleep(1) # Simple wait for network issues
+                    continue
+                raise APIError(f"A network error occurred: {e}") from e
+
+            except RateLimitError as e:
+                # Handle rate limit errors with exponential backoff
+                if attempt < retry_count - 1:
+                    # Calculate wait time: base * (2^attempt) + random_jitter
+                    backoff_time = base_wait_sec * (2 ** attempt) + random.uniform(0, 1)
+                    print(f"   [{e} - waiting {backoff_time:.1f}s before retry {attempt+2}/{retry_count}]")
+                    time.sleep(backoff_time)
+                    continue
+                
+                # If all retries fail, re-raise the final exception
+                raise RateLimitError(f"Rate limit exceeded after {retry_count} retries.") from e
+
+            except APIError as e:
+                # Re-raise other API errors immediately
+                raise e
+
+        # This part should not be reachable if logic is correct, but as a fallback:
+        raise APIError(f"Request failed after {retry_count} retries.")
     
     # ========== Account Methods ==========
     
@@ -396,13 +435,13 @@ class KalshiError(Exception):
     pass
 
 class AuthenticationError(KalshiError):
-    """Raised when API authentication fails."""
+    """Raised when API authentication fails (401)."""
     pass
 
 class RateLimitError(KalshiError):
-    """Raised when rate limits are exceeded."""
+    """Raised when rate limits are exceeded (429)."""
     pass
 
 class APIError(KalshiError):
-    """Raised for general API errors."""
+    """Raised for other client-side or server-side API errors (4xx, 5xx)."""
     pass
