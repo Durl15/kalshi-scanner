@@ -1,0 +1,85 @@
+[
+  {
+    "market_ticker": "KXMVESPORTSMULTIGAMEEXTENDED-S20264AEF93DCC5A-34148C72BC4",
+    "market_title": "yes Cade Cunningham: 12+,yes Cade Cunningham: 5+",
+    "predicted_probability": 0.05,
+    "confidence": 0.2,
+    "reasoning": "The market title 'yes Cade Cunningham: 12+,yes Cade Cunningham: 5+' is unclear and appears to be either corrupted data or an improperly formatted compound bet. This could be asking about Cade Cunningham achieving certain statistical thresholds (possibly 12+ and 5+ in different categories like points/assists, rebounds/assists, etc.) in a single game or over a period. However, without clear resolution criteria, any probability estimate is highly speculative. The $0.00 YES price suggests either no trading activity or that the market may be broken/inactive. Cade Cunningham is a talented NBA player capable of strong statistical performances, but the ambiguous nature of what exactly needs to happen makes this extremely difficult to assess. The low probability reflects the uncertainty about what the market is actually measuring rather than Cunningham's basketball abilities.",
+    "key_factors": [
+      "Unclear and potentially corrupted market title/resolution criteria",
+      "Zero trading volume and $0.00 YES price suggesting inactive/broken market",
+      "Cade Cunningham's NBA performance capabilities and current season statistics",
+      "Ambiguity about whether this is a single-game or season-long proposition"
+    ],
+    "risks": [
+      "The forecaster may be incorrectly assuming the market is broken when it could be a legitimate compound bet with clear resolution criteria that they simply don't understand",
+      "A $0.00 YES price could indicate the outcome has already occurred or is guaranteed to occur, not that the market is inactive - making a 5% probability severely underestimated",
+      "The forecaster's uncertainty about the market mechanics could lead to missing an obvious arbitrage opportunity if this is actually a simple, well-defined bet",
+      "If this is a live game prop bet, the situation could change rapidly during play, making any static probability assessment obsolete within minutes"
+    ],
+    "blind_spots": [
+      "The forecaster assumes compound bets are inherently problematic, but many legitimate sportsbooks offer clear multi-condition props (e.g., 'Player X: 12+ points AND 5+ assists')",
+      "They focus entirely on the formatting ambiguity while ignoring that Cade Cunningham's actual recent performance data could provide strong directional guidance regardless of exact market mechanics",
+      "The analysis doesn't consider that a $0.00 price might indicate the market has specific technical rules or states (like being voided, settled, or having minimum price floors) rather than being 'broken'"
+    ],
+    "alternative_view": "The strongest case against this forecast is that this appears to be a standard NBA player prop bet for Cade Cunningham to achieve both 12+ points and 5+ assists in a game - a relatively common occurrence for a starting point guard of his caliber. The $0.00 price likely indicates the bet has already won or the game is in progress with the outcome nearly certain. A 5% probability severely underestimates what could be a 40-60% likelihood event for a player of Cunningham's statistical profile, suggesting the forecaster's confusion about market formatting led them to dramatically undervalue a straightforward basketball proposition.",
+    "decision": "skip",
+    "recommended_price": null,
+    "position_size_pct": 0.0,
+    "edge": 0.0
+  },
+  {
+    "market_ticker": "KXMVESPORTSMULTIGAMEEXTENDED-S20262B8E09F2DB5-B6B354E8CC6",
+    "market_title": "yes Tottenham,yes Brighton,yes Chelsea,yes Bournemouth,yes Toledo,yes William & Mary,yes Butler,yes Hunter Henry,yes Seattle D/ST,yes Hunter Henry: 30+,yes AJ Barner: 20+,yes Kenneth Walker III: 10+,yes Drake Maye: 10+",
+    "predicted_probability": 0.01,
+    "confidence": 0.75,
+    "reasoning": "This appears to be a parlay-style bet requiring ALL of the following conditions to be met: Tottenham, Brighton, Chelsea, and Bournemouth all winning their respective matches; Toledo and William & Mary winning their games; Butler winning; Hunter Henry achieving some performance threshold AND scoring 30+ points; AJ Barner getting 20+ points; Kenneth Walker III getting 10+ points; and Drake Maye getting 10+ points. The mix of soccer teams (Premier League), college sports, and NFL player props creates an extremely complex multi-leg wager. Even if each individual outcome had a 70% probability (which is optimistic for such specific requirements), the combined probability would be 0.7^11 \u2248 1.9%. More realistically, with varying probabilities across different sports and specific statistical thresholds, and considering the unusual combination of outcomes required, the true probability is likely around 1%. The current market price of $0.00 actually aligns reasonably well with the mathematical reality of such a complex parlay.",
+    "key_factors": [
+      "Multiple independent sporting events across different leagues and sports must ALL occur",
+      "Specific player statistical thresholds (30+, 20+, 10+ points) create additional constraints",
+      "Parlay mathematics - even high-probability individual events become very unlikely when combined",
+      "Mix of soccer, college sports, and NFL creates diverse risk factors across different competitions"
+    ],
+    "risks": [
+      "Player injury/suspension risk - NFL players like Hunter Henry, Kenneth Walker III could be ruled out last minute, making their prop bets impossible to hit regardless of probability calculations",
+      "Game postponement/cancellation risk - Weather, COVID, or other factors could postpone games across multiple leagues, potentially voiding parts of the parlay or changing the dynamics entirely",
+      "Lineup/rotation changes - College teams especially may rest key players, and NFL coaches might limit snap counts for players in certain game situations, dramatically affecting statistical outcomes"
+    ],
+    "blind_spots": [
+      "Market maker error possibility - The $0.00 price might indicate this is a broken/test market rather than a legitimate betting opportunity, meaning the 1% probability assessment is irrelevant if the market doesn't actually exist",
+      "Correlation assumptions - The forecaster treats all events as independent, but there could be positive correlations (e.g., if Hunter Henry has a great game hitting 30+ points, he's more likely to hit his basic threshold too, or favorable NFL game scripts could benefit multiple player props simultaneously)"
+    ],
+    "alternative_view": "The strongest case against this forecast is that the 1% probability is actually too high because the forecaster may be underestimating the difficulty of hitting specific statistical thresholds. NFL player props with exact point totals (30+, 20+) are notoriously volatile and depend heavily on game script, red zone opportunities, and garbage time - factors that are much less predictable than simple win/loss outcomes. Additionally, the $0.00 market price suggests even sophisticated bettors and algorithms have priced this at effectively zero probability, indicating the true odds could be closer to 0.1% or lower when accounting for all the operational risks the mathematical model doesn't capture.",
+    "decision": "skip",
+    "recommended_price": null,
+    "position_size_pct": 0.0,
+    "edge": null
+  },
+  {
+    "market_ticker": "KXMVESPORTSMULTIGAMEEXTENDED-S2026D882BABC7E2-2214744684D",
+    "market_title": "yes Cade Cunningham: 10+,yes Stephen Curry: 4+,yes Detroit",
+    "predicted_probability": 0.02,
+    "confidence": 0.3,
+    "reasoning": "This appears to be a multi-leg betting proposition requiring: (1) Cade Cunningham to achieve 10+ of some statistic, (2) Stephen Curry to achieve 4+ of some statistic, and (3) Detroit to win the game. Without knowing the specific statistics being tracked, I'm assuming these are likely points based on typical player prop bets. Cade Cunningham averaging around 22-24 PPG makes 10+ points very likely (~90-95%). Stephen Curry averaging 26+ PPG makes 4+ points extremely likely (~98-99%). However, Detroit's chances of beating Golden State in any given matchup are significantly lower, likely around 25-35% based on current team strengths and historical performance. Since all three conditions must be met simultaneously, the probability is multiplicative: roughly 0.95 \u00d7 0.98 \u00d7 0.30 \u2248 0.28 or 28%. However, the current market price of $0.00 suggests either this bet has already been resolved negatively, there's missing crucial information, or there are additional conditions that make this outcome much less likely than my base calculation suggests.",
+    "key_factors": [
+      "Individual player performance consistency (Cunningham 10+, Curry 4+ in assumed statistics)",
+      "Detroit Pistons' ability to defeat Golden State Warriors in head-to-head matchup",
+      "Potential missing information about specific game context, injury reports, or additional betting conditions"
+    ],
+    "risks": [
+      "The forecaster assumes these are points, but the statistics could be assists, rebounds, turnovers, or other metrics where the probability calculations would be drastically different - for example, Curry getting 4+ turnovers is much less likely than 4+ points",
+      "Injury or rest considerations are completely ignored - either player could be ruled out, on minutes restrictions, or playing through injury which would dramatically alter their statistical output probabilities",
+      "The $0.00 market price strongly suggests this bet may have already been settled as a loss or the game/conditions have changed, making the entire probability analysis irrelevant to current betting value",
+      "Game script dependency is underestimated - if Detroit falls behind early, Cunningham might get limited fourth quarter minutes, or if Golden State blows out Detroit, Curry might rest extensively, both affecting the statistical outcomes"
+    ],
+    "blind_spots": [
+      "The forecaster completely ignores the correlation between outcomes - if Detroit is winning (more likely for the bet to hit), Cunningham probably had a good game, but Curry might have struggled or played fewer minutes, creating negative correlation between the player props and team result",
+      "No consideration of the specific betting market mechanics - this could be a same-game parlay with adjusted odds, a promotional bet with special conditions, or have timing restrictions (like first quarter only) that aren't apparent from the market description"
+    ],
+    "alternative_view": "The strongest case against this forecast is that the $0.00 market price is the most reliable piece of information available, suggesting this outcome is essentially impossible or has already been determined. The forecaster's 28% probability estimate is likely completely wrong because they're missing critical context - this could be a bet on a game that already happened, has been postponed, or involves specific conditions (like 'in the first 5 minutes') that make the outcomes much less probable than season-long averages would suggest. The mathematical approach of multiplying independent probabilities ignores that sportsbooks price these correlated outcomes more accurately than simple multiplication.",
+    "decision": "skip",
+    "recommended_price": null,
+    "position_size_pct": 0.0,
+    "edge": -0.99
+  }
+]

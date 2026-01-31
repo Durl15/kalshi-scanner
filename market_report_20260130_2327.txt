@@ -1,0 +1,34 @@
+============================================================
+KALSHI MARKET OPPORTUNITIES REPORT
+Generated: 2026-01-30 23:27:36
+============================================================
+
+
+--- WIDE_SPREAD (10) ---
+
+  yes Nic Claxton: 10+,yes Stephen Curry: 25+,yes Hunter Henry,yes Kayshon Boutte,yes Cooper Kupp: 4+,yes Rhamondre Stevenson: 40+,yes Kenneth Walker III: 30+,yes Rashid Shaheed: 30+
+    Ticker: KXMVESPORTSMULTIGAMEEXTENDED-S20263FE585F9FB3-3E2331A915B
+    Score: 100.0
+    Spread: 1.00
+
+  no Brooklyn wins by over 6.5 Points,yes Over 219.5 points scored
+    Ticker: KXMVESPORTSMULTIGAMEEXTENDED-S20263DDD06E71FC-623F150CA76
+    Score: 100.0
+    Spread: 1.00
+
+  yes Stephen Curry: 35+,no Detroit wins by over 8.5 Points,yes Kenneth Walker III,yes Seattle wins by over 7.5 points
+    Ticker: KXMVESPORTSMULTIGAMEEXTENDED-S20269EBDADF6584-85968DC1149
+    Score: 100.0
+    Spread: 1.00
+
+  yes Xavier,yes Butler,yes Weber St.,yes Montana,yes Portland St.,yes Drexel,yes North Carolina St.,yes Northern Illinois,yes Wisconsin,yes Texas Tech
+    Ticker: KXMVESPORTSMULTIGAMEEXTENDED-S20265329E21E6B8-EDE4C1B9442
+    Score: 100.0
+    Spread: 1.00
+
+  yes Denver,yes Oklahoma
+    Ticker: KXMVESPORTSMULTIGAMEEXTENDED-S2026365F2B62F6C-B10A1AAD599
+    Score: 100.0
+    Spread: 1.00
+
+============================================================

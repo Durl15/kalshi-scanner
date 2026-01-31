@@ -1,0 +1,34 @@
+============================================================
+KALSHI MARKET OPPORTUNITIES REPORT
+Generated: 2026-01-30 22:36:17
+============================================================
+
+
+--- WIDE_SPREAD (10) ---
+
+  yes Brooklyn,yes Cleveland,yes Detroit,yes Cade Cunningham: 20+,yes Jamal Murray: 15+,yes Nikola Jokić: 25+,yes James Harden: 25+,yes Over 213.5 points scored,yes Over 217.5 points scored,yes Over 224.5 points scored
+    Ticker: KXMVESPORTSMULTIGAMEEXTENDED-S20260C14731BA3F-12ABD461D17
+    Score: 100.0
+    Spread: 1.00
+
+  yes Cade Cunningham: 1+,yes Kawhi Leonard: 2+
+    Ticker: KXMVESPORTSMULTIGAMEEXTENDED-S2026578009E1594-478B952B311
+    Score: 100.0
+    Spread: 1.00
+
+  yes Nic Claxton: 8+,yes Grand Canyon,yes CBJ Blue Jackets,no Over 7.5 goals scored
+    Ticker: KXMVESPORTSMULTIGAMEEXTENDED-S2026CFD77064242-F42A0CDB060
+    Score: 100.0
+    Spread: 1.00
+
+  yes Golden State,yes Stephen Curry: 40+,yes Cade Cunningham: 8+,yes Over 239.5 points scored
+    Ticker: KXMVESPORTSMULTIGAMEEXTENDED-S2026B9732FF1BC0-927BDCECEB0
+    Score: 100.0
+    Spread: 1.00
+
+  no Over 226.5 points scored,no Over 154.5 points scored,no Over 7.5 goals scored
+    Ticker: KXMVESPORTSMULTIGAMEEXTENDED-S2026079C042C910-9F224F44501
+    Score: 100.0
+    Spread: 1.00
+
+============================================================
