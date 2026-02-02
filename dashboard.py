@@ -14,7 +14,13 @@ Run: streamlit run dashboard.py
 """
 
 import sys
+import os
 sys.path.insert(0, '.')
+
+# Fix invalid SSL_CERT_FILE that prevents httpx/anthropic from initializing
+_ssl_cert = os.environ.get("SSL_CERT_FILE")
+if _ssl_cert and not os.path.exists(_ssl_cert):
+    del os.environ["SSL_CERT_FILE"]
 
 import streamlit as st
 import pandas as pd
@@ -135,7 +141,7 @@ def get_ai_decider():
     return None
 
 
-@st.cache_data(ttl=120)
+@st.cache_resource(ttl=120)
 def fetch_markets(_client, max_pages=3):
     """Fetch markets with caching."""
     return _client.get_all_markets(status="open", max_pages=max_pages)
